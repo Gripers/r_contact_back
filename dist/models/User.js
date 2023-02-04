@@ -8,6 +8,6 @@ const userSchema = new mongoose_1.default.Schema({
     fio: { type: String, required: true, unique: true },
     phone_number: { type: Number, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    tags: [{ type: String, unique: true }],
+    tags: [{ type: String }],
 });
 exports.default = mongoose_1.default.model('User', userSchema);
