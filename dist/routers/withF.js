@@ -12,26 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
-const mongoose_1 = require("mongoose");
-const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
-const global_1 = __importDefault(require("./routers/global"));
-const withF_1 = __importDefault(require("./routers/withF"));
-const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use('/api', global_1.default);
-app.use('/api', withF_1.default);
-(0, mongoose_1.set)('strictQuery', false);
-const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, mongoose_1.connect)(process.env.MONGO_URL)
-        .then(() => {
-        console.log('db: ok');
-    })
-        .catch(() => {
-        console.log('db: bad');
-    });
-    app.listen(process.env.PORT, () => console.log('server started'));
-});
-start();
+const express_1 = require("express");
+const User_1 = __importDefault(require("../models/User"));
+const router = (0, express_1.Router)();
+router.get('/users&filter', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield User_1.default.findOne({ fio: req.query.fio } || { phone_number: req.query.phone_number } || {
+            email: req.query.email,
+        } || { tags: req.query.tags });
+        res.status(200).json(users);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json(error.message);
+        }
+    }
+}));
+exports.default = router;
