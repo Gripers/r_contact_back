@@ -17,14 +17,14 @@ app.use('/api', funcRoute);
 set('strictQuery', false);
 
 const start = async () => {
-  await connect(process.env.MONGO_URL as string)
+  await connect('mongodb+srv://riot:riot@cluster0.q50nq5f.mongodb.net')
     .then(() => {
       console.log('db: ok');
     })
     .catch(() => {
       console.log('db: bad');
     });
-  app.listen(process.env.PORT, () => console.log('server started'));
+  app.listen(8080, () => console.log('server started'));
 };
 
 start();

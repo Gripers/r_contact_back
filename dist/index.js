@@ -25,13 +25,13 @@ app.use('/api', global_1.default);
 app.use('/api', withF_1.default);
 (0, mongoose_1.set)('strictQuery', false);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, mongoose_1.connect)(process.env.MONGO_URL)
+    yield (0, mongoose_1.connect)('mongodb+srv://riot:riot@cluster0.q50nq5f.mongodb.net')
         .then(() => {
         console.log('db: ok');
     })
         .catch(() => {
         console.log('db: bad');
     });
-    app.listen(process.env.PORT, () => console.log('server started'));
+    app.listen(8080, () => console.log('server started'));
 });
 start();
