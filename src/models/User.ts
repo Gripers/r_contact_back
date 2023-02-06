@@ -1,10 +1,18 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const userSchema = new mongoose.Schema({
   fio: { type: String, required: true, unique: true },
   phone_number: { type: Number, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  tags: [{ type: String }],
+  category: { type: String },
 });
 
-export default mongoose.model('User', userSchema);
+userSchema.plugin(mongoosePaginate);
+
+interface UserDocument extends mongoose.Document {}
+
+export default mongoose.model<
+  UserDocument,
+  mongoose.PaginateModel<UserDocument>
+>('User', userSchema, 'users');

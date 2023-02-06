@@ -4,9 +4,18 @@ import User from '../models/User';
 const router = Router();
 
 // get contacts
-router.get('/users', async (req: Request, res: Response) => {
+router.get('/users', async (req: any, res: Response) => {
   try {
-    const users = await User.find();
+    const page = req.query.page || 1;
+    const per_page = req.query.per_page || 10;
+
+    const options = {
+      page: parseInt(page, 10),
+      limit: parseInt(per_page, 10),
+    };
+
+    const users = await User.paginate({}, options);
+
     res.status(200).json(users);
   } catch (error) {
     if (error instanceof Error) {
