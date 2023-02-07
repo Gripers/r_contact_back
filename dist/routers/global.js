@@ -18,7 +18,13 @@ const router = (0, express_1.Router)();
 // get contacts
 router.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield User_1.default.find();
+        const page = req.query.page || 1;
+        const per_page = req.query.per_page || 10;
+        const options = {
+            page: parseInt(page, 10),
+            limit: parseInt(per_page, 10),
+        };
+        const users = yield User_1.default.paginate({}, options);
         res.status(200).json(users);
     }
     catch (error) {
