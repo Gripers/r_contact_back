@@ -14,7 +14,9 @@ router.get('/users', async (req: any, res: Response) => {
       limit: parseInt(per_page, 10),
     };
 
-    const users = await User.paginate({}, options);
+    // const users = await User.paginate({}, options);
+
+    const users = await User.find();
 
     res.status(200).json(users);
   } catch (error) {

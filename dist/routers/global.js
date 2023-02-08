@@ -24,7 +24,8 @@ router.get('/users', (req, res) => __awaiter(void 0, void 0, void 0, function* (
             page: parseInt(page, 10),
             limit: parseInt(per_page, 10),
         };
-        const users = yield User_1.default.paginate({}, options);
+        // const users = await User.paginate({}, options);
+        const users = yield User_1.default.find();
         res.status(200).json(users);
     }
     catch (error) {
