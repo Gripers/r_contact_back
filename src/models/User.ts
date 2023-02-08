@@ -8,11 +8,8 @@ const userSchema = new mongoose.Schema({
   category: { type: String },
 });
 
-userSchema.plugin(mongoosePaginate);
+// userSchema.plugin(mongoosePaginate);
 
 interface UserDocument extends mongoose.Document {}
 
-export default mongoose.model<
-  UserDocument,
-  mongoose.PaginateModel<UserDocument>
->('User', userSchema, 'users');
+export default mongoose.model('User', userSchema);
